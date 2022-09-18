@@ -1,34 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="eu.tutorials.quizapp">
+package eu.tutorials.quizapp
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.QuizApp">
-        <activity
-            android:name=".ResultActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoactionBar"
-            android:exported="true" />
-        <activity
-            android:name=".QuizQuestionsActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoactionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatEditText
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
 
-</manifest>
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val buttonStart:Button = findViewById(R.id.btn_start)
+        val etName:AppCompatEditText = findViewById(R.id.et_name)
+        buttonStart.setOnClickListener {
+          if (etName.text.toString().isEmpty()){
+              Toast.makeText(this,"Please Enter Your Name",Toast.LENGTH_SHORT).show()
+          }else{
+              val intent = Intent(this@MainActivity, QuizQuestionsActivity::class.java)
+              // TODO Pass the name through intent using the constant variable which we have created.
+              intent.putExtra(Constants.USER_NAME, etName.text.toString())
+              startActivity(intent)
+              finish()
+          }
+        }
+    }
+}
