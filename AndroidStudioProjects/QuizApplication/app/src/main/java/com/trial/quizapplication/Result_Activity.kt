@@ -1,29 +1,36 @@
-package com.trial.quizapplication
+package eu.tutorials.quizapp
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 
-class Result_Activity : AppCompatActivity() {
+class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.result_page)
+        setContentView(R.layout.activity_result)
 
-        val tvName:TextView = findViewById(R.id.name)
-        val tvResult :TextView = findViewById(R.id.result)
-        val btn_finish :Button = findViewById(R.id.finish_button)
+       //Todo: connect to each view in the layout through its id
+        val tvName: TextView = findViewById(R.id.tv_name)
+        val tvScore:TextView = findViewById(R.id.tv_score)
+        val btnFinish:Button = findViewById(R.id.btn_finish)
 
-        tvName.text = intent.getStringExtra(Constants.USER_NAME)
+        val userName = intent.getStringExtra(Constants.USER_NAME)
+        tvName.text = userName
 
-        val totalquestion = intent.getIntExtra(Constants.TOTAL_QUESTIONS,0)
-        val correctanswer = intent.getIntExtra(Constants.CORRECT_ANSWER,0)
+        val totalQuestions = intent.getIntExtra(Constants.TOTAL_QUESTIONS, 0)
+        val correctAnswers = intent.getIntExtra(Constants.CORRECT_ANSWERS, 0)
 
-        tvResult.text = "Your Score is $correctanswer out of $totalquestion"
+        tvScore.text = "Your Score is $correctAnswers out of $totalQuestions."
 
-        btn_finish.setOnClickListener {
-            startActivity(Intent(this,MainActivity::class.java))
+        btnFinish.setOnClickListener {
+            //
+            startActivity(Intent(this@ResultActivity, MainActivity::class.java))
         }
     }
+
+
 }
