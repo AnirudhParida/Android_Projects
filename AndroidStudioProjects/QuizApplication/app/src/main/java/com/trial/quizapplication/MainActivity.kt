@@ -1,30 +1,34 @@
-package com.trial.quizapplication
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="eu.tutorials.quizapp">
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.Looper
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.widget.AppCompatEditText
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.QuizApp">
+        <activity
+            android:name=".ResultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoactionBar"
+            android:exported="true" />
+        <activity
+            android:name=".QuizQuestionsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoactionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val startbtn : Button = findViewById(R.id.start_button)
-        val name : AppCompatEditText = findViewById(R.id.user_name)
-        startbtn.setOnClickListener {
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
-            if (name.text.toString().isEmpty()){
-                Toast.makeText(this, "NAME PLZ", Toast.LENGTH_LONG).show()
-            }else{
-                val intent = Intent(this@MainActivity,QuizQuestionsActivity::class.java)
-                intent.putExtra(Constants.USER_NAME,name.text.toString())
-                startActivity(intent)
-//                finish()
-            }
-        }
-    }
-}
+</manifest>
